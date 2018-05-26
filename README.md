@@ -17,6 +17,11 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
     - Pure functions always return the same result given the same arguments.
     - Pure function's execution doesn't depend on the state of the application.
     - Pure functions don't modify the variables outside of their scope. 
+- React's render method needs to be a pure function and because it's a pure function, all of the benefits of pure functions now apply to your UI as well
+- PropTypes allow you to declare the "type" (string, number, function, etc) of each prop being passed to a component
+    - if a prop passed in isn't of the declared type, you'll get a warning in the console
+    - to use PropTypes with functions the API is PropTypes.func
+    - to use booleans, the API is PropTypes.bool
 - 
 
 ## Basic React component
