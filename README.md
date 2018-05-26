@@ -12,6 +12,11 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 - separation of concerns - mix JS and HTML as part of one app
 - react component: a collection of HTML, CSS, JS, and some internal data specific to that component
 - React components === Kolaches of the web. They have everything you need, wrapped in a delicious composable bundle
+- instead of composing functions to get some value, compose functions to get some UI
+- pure function --> consistency and predictability
+    - Pure functions always return the same result given the same arguments.
+    - Pure function's execution doesn't depend on the state of the application.
+    - Pure functions don't modify the variables outside of their scope. 
 - 
 
 ## Basic React component
@@ -27,6 +32,19 @@ class HelloWorld extends React.Component {
   }
 }
 ReactDOM.render(<HelloWorld />, document.getElementById('app'));
+```
+
+### Basic use of props
+
+```
+class HelloUser extends React.Component {
+  render() {
+    return (
+      <div> Hello, {this.props.name}</div>
+    )
+  }
+}
+ReactDOM.render(<HelloUser name="Tyler"/>, document.getElementById('app'));
 ```
 
 ## Imperative vs. declarative
@@ -76,4 +94,42 @@ function add (arr) {
   highlight={this.state.highlight}>
     {this.state.buttonText}
 </Btn>
+```
+
+## More code examples from tutorials
+```
+class Users extends React.Component {
+  render() {
+      <!-- This is where JS logic goes! before the return -->
+    let friends = this.props.list.filter(function(user){
+                return user.friend === true
+    })
+    let nonfriends = this.props.list.filter(function(user){
+              return user.friend !== true;
+            })
+    return (
+      <div>
+        <h1>Friends</h1>
+        <ul> 
+           { /*Create an <li> for every name in the list array who is also your friend*/
+            friends.map(function(user){
+                return <li key={user.name}>{user.name}</li>  <!-- React requires unique keys! -->
+              })
+           }
+        </ul>
+        
+        <hr />
+        
+        <h1> Non Friends </h1>
+        <ul>
+          {/*Create an <li> for every name in the list array who is NOT your friend*/
+          nonfriends.map(function(user){
+              return <li key={user.name}>{user.name}</li>  <!-- React requires unique keys! -->
+            })
+          }
+        </ul>        
+      </div>
+    )
+  }
+}
 ```

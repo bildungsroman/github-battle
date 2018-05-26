@@ -6,9 +6,6 @@ require('./index.css');
 // lifecycle event
 // UI
 
-// separation of concerns?
-
-
 class App extends React.Component {
   render() {  // below is JSX!
     return (
