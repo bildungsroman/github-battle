@@ -48,17 +48,17 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
   - can have WeakSet() -> takes only objects
 - Classes:
   - ``` class NewClass {``` 
-  ```   constructor(name, username, img) {``` 
-  ```     this.name = name;``` 
-  ```     this.username = username;``` 
-  ```     this.img = img;``` 
-  ```   } ``` 
-    ``` render(){``` 
-    ```   // ...``` 
-    ``` }``` 
-  ``` } ```
-  ``` let instanceClass = new NewClass(name, username, imgurl); ```
-  ``` instanceClass.render(); ```
+  - ```   constructor(name, username, img) {``` 
+  - ```     this.name = name;``` 
+  - ```     this.username = username;``` 
+  - ```     this.img = img;``` 
+  - ```   } ``` 
+  -   ``` render(){``` 
+  -   ```   // ...``` 
+  -   ``` }``` 
+  - ``` } ```
+  - ``` let instanceClass = new NewClass(name, username, imgurl); ```
+  - ``` instanceClass.render(); ```
 - 
 
 
