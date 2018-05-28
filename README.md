@@ -12,6 +12,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 - separation of concerns - mix JS and HTML as part of one app
 - react component: a collection of HTML, CSS, JS, and some internal data specific to that component
 - React components === Kolaches of the web. They have everything you need, wrapped in a delicious composable bundle
+- you should treat props to a component as immutable
 - instead of composing functions to get some value, compose functions to get some UI
 - pure function --> consistency and predictability
     - Pure functions always return the same result given the same arguments.
@@ -22,7 +23,44 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
     - if a prop passed in isn't of the declared type, you'll get a warning in the console
     - to use PropTypes with functions the API is PropTypes.func
     - to use booleans, the API is PropTypes.bool
+    - ALWAYS specify propType of each component you build!
 - 
+
+### General JS things I should probably already know
+
+- ...varName: rest parameter - automatically becomes an array - must be last parameter in a function
+- => arrow functions: lexical binding - bind to the scope of where they are defined, not where they are used
+  - aFunction(arg1, (argument) => { // function });
+- template strings: string literals allowing embedded expressions
+  - let fullString = `${str1} ${str2}` --> str1 str2
+- ```let settings = Object.assign({}, defaults, options);```
+- for-of loop for arrays: ``` for (let name of names) { // do stuff }  ```
+- Array.find: ```let admin = users.find( user => user.admin ); ``` --> returns first true value (not all true values like Array.filter)
+- Maps: like objects - key/value data structure - any value can be key or value, & numbers not converted to strings
+  - use get() & set() methods to access values in maps
+  - ``` let newMap = new Map(); \ newMap.set( user1, 5); \ newMap.get(user1); ==> 5 ```
+  - can be used with for...of loops, unlike objects
+  - can have WeakMap() -> takes only objects
+- Sets: like arrays - store unique values of any type (like python dicts)
+  - use add() & 
+  - ``` let newSet = new Set();  \ newSet.add("value"); \ newSet.size ==> 1```
+  - set objects are iterable - can be used w/ for...of loops - ``` for(let set of newSet) {};  ```
+  - can have WeakSet() -> takes only objects
+- Classes:
+  - ``` class NewClass {``` 
+  ```   constructor(name, username, img) {``` 
+  ```     this.name = name;``` 
+  ```     this.username = username;``` 
+  ```     this.img = img;``` 
+  ```   } ``` 
+    ``` render(){``` 
+    ```   // ...``` 
+    ``` }``` 
+  ``` } ```
+  ``` let instanceClass = new NewClass(name, username, imgurl); ```
+  ``` instanceClass.render(); ```
+- 
+
 
 ## Basic React component
 
