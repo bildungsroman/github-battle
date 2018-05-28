@@ -128,6 +128,12 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
   let [first, second] = nameList();
   console.log(first, second);  // > name1 name2
   ```
+- Ternary Conditionals:
+  - ```let result = someCondition ? pickThisIfTrue : pickThisIfFalse; ```
+  - ```let result2 = someCondition && someOther ? pickThisIfTrue : pickThisIfFalse; ```
+  - ```someCondition && someOther ? functionIfTrue(){...}() : functionIfFalse(){...}(); ```
+  - ```someCondition ? (param1 = "some value", param2 = "another value") : (param1 = "this value", param2 = "that value"); ```
+  - can be nested!
 - 
 
 
