@@ -60,6 +60,73 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
   }
   let instanceClass = new NewClass(name, username, imgurl);
   let instanceClass.render(); 
+  class ChildClass extends NewClass {
+    constructor(name, username, img) {
+      super();  // must be called in first line of child classes
+      // ...
+    }
+    // ...
+  }
+  ```
+- exporting functions or classes as modules: 
+  ```
+  // flash-message.js:
+  export function flashMessage(message){
+    alert(message);
+  }
+
+  export default class ExportClass {
+    // ...
+  }
+
+  // index.js:f
+  import ExportClass from './flash-message.js';
+  let flash = new ExportClass("a param");
+
+  import flashMessage from './flash-message.js';    OR import * as flash from './flash-message.js';
+  flashMessage("Hello");      OR flash.flashMessage("Hello");
+
+  // constants.js:  // store app-wide constants in a single module to import across files
+  export const A_CONST = 3;
+  export const ANOTHER_CONST = 50;
+  ```
+- Promises:
+  - promise constructor function takes an anonymous function with two callback arguments (handlers):
+  ```
+    function getResults(name) {
+      return new Promise(function(resolve, reject){
+        // ... do stuff
+        resolve(someValue);
+        // ...
+        reject(someValue);
+      });
+    };
+    // then tells function what to do after resolve -> chaining results
+    getResults("some values").then(function(results){
+      return results.filter((result) => result.city === "Orlando");
+    })  // next function uses result of previous one 
+    .then(function(results){
+      ui.renderPage(results);
+    })  // if reject, goes straight to catch
+    .catch(function(error){
+      console.log(error);
+    });
+  ```
+- Generators: 
+  - \* : generator functions - special functions from which we can use the yield keyword to return iterator objects
+  ```
+  function *nameList() {
+    yield "name1";
+    yield "name2";
+  }
+  for (let name of nameList()) {
+    console.log(name);  // > name1, name 2
+  }
+  let names = [...nameList()];
+  console.log(names);  // > ["name1", "name2"]
+
+  let [first, second] = nameList();
+  console.log(first, second);  // > name1 name2
   ```
 - 
 
