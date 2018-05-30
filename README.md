@@ -28,6 +28,13 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 
 ### General JS things I should probably already know
 
+- console.time(...some code...) // other code // console.timeEng(...same code...)  -> to measure how long code execution takes
+- Namespace: an object that groups and protects related data and methods in JavaScript files
+- avoid _with_ and _eval_ - especially when reading JSON to avoid script injections
+  - use JSON.parse!
+- rounding decimals: numberParam.toFixed(2) (returns string) -> use parseFloat(numberParam.toFixed(2))
+- indexOf method returns -1 if item not in array
+  - can use array.indexOf >= 0 as conditional to test if array not empty
 - ...varName: rest parameter - automatically becomes an array - must be last parameter in a function
 - => arrow functions: lexical binding - bind to the scope of where they are defined, not where they are used
   - aFunction(arg1, (argument) => { // function });
@@ -134,8 +141,82 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
   - ```someCondition && someOther ? functionIfTrue(){...}() : functionIfFalse(){...}(); ```
   - ```someCondition ? (param1 = "some value", param2 = "another value") : (param1 = "this value", param2 = "that value"); ```
   - can be nested!
-- 
+  - assignment with logical operators - or:
+  ``` 
+    // if it exists, passed as it is - if it doesn't, assigned empty array
+    function addProperty(property) {
+      this.property = this.property ? this.property : [];
+      // same thing:
+      this.property = this.property || [];
+      this.property.push(property);
+    }
+  ```
+  - assignment with logical operators - and:
+  ``` 
+    // && will take the rightmost 'truthy' value or the first 'falsy' value
+    result = undefined && 42;  // > will return 'undefined'
+    result = "result 1" && "result 2";  // > will return 'result 2' - last 'truthy' value
+    }
+  ```
+- Switch block:
+  ```
+  function Knight (name, choice) {
+    this.name = name;
+    this.choice = choice;
+    switch(choice) {
+      case 1:
+        this.weapon = "sword";
+        break;  // so loop broken once correct choice found
+      case 2:
+        this.weapon = "knife";
+        break;
+      ...
+      case "none":
+        this.weapon = "none";
+        break;
+      default:  // what happens if none of the previous conditions met
+        console.log("no weapon assigned
+        ");
+    }
+  }
 
+  let soldier2 = new Knight("Richard", 2)  // -> soldier2.weapon returns "knife"
+  ```
+- Loop optimization: 
+  ```
+  // instead of for(let i = 0; i < someObj.someArray.length; i++){...}
+  // do:
+  let x = someObj.someArray.length;
+  for(let i = 0; i < x; i++){...}
+  // use 'cached values' to only get length once, not every time the loop runs
+  // even better:
+  let list = someObj.someArray;
+  for(let i = 0, x = list.length; i < x; i++){...}
+  ```
+- Exception handling:
+  - exceptions are run-time errors
+  - A syntax error is detected by the JavaScript parser before the program is ever executed, whereas a run-time error can be the result of trying to execute perfectly valid JavaScript
+  - try/catch block:
+    ```
+    try {
+      do(something);
+    } catch(error) {
+      alert(something + " does not exist!");
+    }
+    // can do:
+    catch(error) {
+      if (error instanceof TypeError) {
+        // ...
+      }
+      if (!something) {
+        throw new Error ("Not found!");
+      }
+    }
+    finally {
+      // comes at end of try/catch block, always executed
+    }
+    ```
+- 
 
 ## Basic React component
 
