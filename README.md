@@ -24,6 +24,10 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
     - to use PropTypes with functions the API is PropTypes.func
     - to use booleans, the API is PropTypes.bool
     - ALWAYS specify propType of each component you build!
+- In JSX, anything written between {} is interpreted as literal JS
+- Setting state with setState():
+  - incorrect: ``` this.state.showComments = true; ```
+  - correct: ``` this.setState({showComments: true}); ```
 - 
 
 ### General JS things I should probably already know
@@ -234,6 +238,7 @@ ReactDOM.render(<HelloWorld />, document.getElementById('app'));
 ```
 
 ### Basic use of props
+- props are arguments passed to components
 
 ```
 class HelloUser extends React.Component {
@@ -299,7 +304,8 @@ function add (arr) {
 ```
 class Users extends React.Component {
   render() {
-      <!-- This is where JS logic goes! before the return -->
+    <!-- This is where JS logic goes! before the return -->
+    const topics = ["React", "JSX", "JavaScript", "Programming"];
     let friends = this.props.list.filter(function(user){
                 return user.friend === true
     })
@@ -316,6 +322,10 @@ class Users extends React.Component {
               })
            }
         </ul>
+        <!-- another way to use map() in JSX: -->
+        <ul>
+          {topics.map( () => <li>{topics}</li> )}
+        </ul>
         
         <hr />
         
@@ -330,5 +340,101 @@ class Users extends React.Component {
       </div>
     )
   }
+}
+```
+
+```
+class CommentBox extends React.Component {
+  render() {
+    const comments = this._getComments() || [];
+    return(
+      <div className="comment-box">
+        <h3>Comments</h3>
+        {this._getPopularMessage(comments.length)}
+        <h4 className="comment-count">{this._getCommentsTitle(comments.length)}</h4>
+        <div className="comment-list">
+          {comments}
+        </div>
+      </div>
+    );
+  }
+
+  _getPopularMessage(commentCount) {
+    const POPULAR_COUNT = 10;
+    if (commentCount > POPULAR_COUNT) {
+       return (
+         <div>This post is getting really popular, don't miss out!</div>
+       );
+    }
+  }
+  
+  _getComments() {
+    const commentList = [  // this would be AJAX!
+      { id: 1, author: 'Clu', body: 'Just say no to love!', avatarUrl: 'images/default-avatar.png' },
+      { id: 2, author: 'Anne Droid', body: 'I wanna know what love is...', avatarUrl: 'images/default-avatar.png' }
+    ];
+
+    return commentList.map((comment) => {
+      return (<Comment
+               author={comment.author}
+               body={comment.body}
+               avatarUrl={comment.avatarUrl}
+               key={comment.id}    // remember to use a unique key!
+               />);
+    });
+  }
+
+  _getCommentsTitle(commentCount) {
+    if (commentCount === 0) {
+      return 'No comments yet';
+    } else if (commentCount === 1) {
+      return '1 comment';
+    } else {
+      return `${commentCount} comments`;
+    }
+  }
+}
+
+class Comment extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isAbusive: false
+    };
+  }
+
+  render() {
+    let commentBody;
+
+    if (!this.state.isAbusive) {
+      commentBody = this.props.body;
+    } else {
+      commentBody = <em>Content marked as abusive</em>;
+    }
+
+    return(
+      <div className="comment">
+        
+        <img src={this.props.avatarUrl} alt={`${this.props.author}'s picture`} />
+
+        <p className="comment-header">{this.props.author}</p>
+        <p className="comment-body">`
+          {commentBody}
+        </p>
+        <div className="comment-actions">
+          <a href="#">Delete comment</a>
+          <a href="#" onClick={this._toggleAbuse.bind(this)}>Report as Abuse</a>  // use bind to bind event!
+        </div>
+      </div>
+    );
+  }
+
+  _toggleAbuse(event) {
+  event.preventDefault();
+  this.setState({
+    isAbusive: !this.state.isAbusive
+    });
+  }
+
 }
 ```
