@@ -46,6 +46,10 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
   - let fullString = `${str1} ${str2}` --> str1 str2
 - ```let settings = Object.assign({}, defaults, options);```
 - for-of loop for arrays: ``` for (let name of names) { // do stuff }  ```
+- refs: assign form values to properties on the component object
+  - ``` <input placeholder="Name: " ref={(input) => this._author = input} /> ```
+- Synthetic events: in order to ensure events have consistent properties across browsers, React wraps the browser's native events into synthetic events
+  - use ```onSubmit``` in react to capture form submission events
 - Array.find: ```let admin = users.find( user => user.admin ); ``` --> returns first true value (not all true values like Array.filter)
 - Maps: like objects - key/value data structure - any value can be key or value, & numbers not converted to strings
   - use get() & set() methods to access values in maps
@@ -220,7 +224,18 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
       // comes at end of try/catch block, always executed
     }
     ```
-- 
+- React Lifecycle methods:
+  - functions that are called while the component is rendered for the first time or about to be removed from the DOM
+  - functions that get called during certain phases that components go through
+  - order:
+    ```
+      constructor()
+      componentWillMount()    // mounting = being rendered for the first time -> good time for AJAX requests
+      render()
+      componentDidMount()     // good place to fetch data from API that needs to be fetched periodically (using setInterval())
+      componentWillUnmount()  // unmounting = being removed from the DOM -> remember to clearInterval() here if set
+    ```
+  - 
 
 ## Basic React component
 
@@ -345,18 +360,49 @@ class Users extends React.Component {
 
 ```
 class CommentBox extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      showComments: false,
+      comments: []   // populated by AJAX!
+    };
+  }
+
+  componentWillMount() {  // so comments fetched before render
+    this._fetchComments();
+  }
+
   render() {
-    const comments = this._getComments() || [];
+    const comments = this._getComments();
     return(
       <div className="comment-box">
-        <h3>Comments</h3>
+        <CommentForm addComment={this._addComment.bind(this)} />
+        <CommentAvatarList avatars={this._getAvatars()} />
         {this._getPopularMessage(comments.length)}
-        <h4 className="comment-count">{this._getCommentsTitle(comments.length)}</h4>
+        <h3 className="comment-count">{this._getCommentsTitle(comments.length)}</h3>
         <div className="comment-list">
           {comments}
         </div>
       </div>
     );
+  }
+
+  _getComments() {
+
+    return commentList.map((comment) => {
+      return (<Comment
+               author={comment.author}
+               body={comment.body}
+               avatarUrl={comment.avatarUrl}
+               onDelete={this._deleteComment.bind(this)}  // use bind(this) so React knows which comment to delete!
+               key={comment.id}    // remember to use a unique key!
+               />);
+    });
+  }
+
+  _getAvatars() {
+    return this.state.comments.map((comment) => comment.avatarUrl);
   }
 
   _getPopularMessage(commentCount) {
@@ -367,24 +413,8 @@ class CommentBox extends React.Component {
        );
     }
   }
-  
-  _getComments() {
-    const commentList = [  // this would be AJAX!
-      { id: 1, author: 'Clu', body: 'Just say no to love!', avatarUrl: 'images/default-avatar.png' },
-      { id: 2, author: 'Anne Droid', body: 'I wanna know what love is...', avatarUrl: 'images/default-avatar.png' }
-    ];
 
-    return commentList.map((comment) => {
-      return (<Comment
-               author={comment.author}
-               body={comment.body}
-               avatarUrl={comment.avatarUrl}
-               key={comment.id}    // remember to use a unique key!
-               />);
-    });
-  }
-
-  _getCommentsTitle(commentCount) {
+  _getCommentsTitle(commentCount) {  // for proper grammar!
     if (commentCount === 0) {
       return 'No comments yet';
     } else if (commentCount === 1) {
@@ -393,6 +423,29 @@ class CommentBox extends React.Component {
       return `${commentCount} comments`;
     }
   }
+
+  _addComment(commentAuthor, commentBody) {
+    let comment = {
+      id: Math.floor(Math.random() * (9999 - this.state.comments.length + 1)) + this.state.comments.length,
+      author: commentAuthor,
+      body: commentBody
+    };
+    
+    this.setState({
+      comments: this.state.comments.concat([comment])  // concat() faster than push() for rendering!
+    });
+  }
+
+  _fetchComments() {
+    $.ajax({
+      method: 'GET',
+      url: 'comments.json',
+      success: (comments) => {
+        this.setState({ comments });
+      }
+    });
+  }
+
 }
 
 class Comment extends React.Component {
@@ -422,8 +475,8 @@ class Comment extends React.Component {
           {commentBody}
         </p>
         <div className="comment-actions">
-          <a href="#">Delete comment</a>
-          <a href="#" onClick={this._toggleAbuse.bind(this)}>Report as Abuse</a>  // use bind to bind event!
+          <RemoveCommentConfirmation onDelete={this._handleDelete.bind(this)} />  // to show a confirmation before deleting a comment
+          <a href="#" onClick={this._toggleAbuse.bind(this)}>Report as Abuse</a>  // use bind to bind event! Otherwise on event handlers won't work!
         </div>
       </div>
     );
@@ -436,5 +489,98 @@ class Comment extends React.Component {
     });
   }
 
+  _handleDelete() {
+      this.props.onDelete(this.props.id);
+    }
+  }
+
 }
+
+class RemoveCommentConfirmation extends React.Component {
+  constructor() {
+    super();
+    
+    this.state = {
+      showConfirm: false
+    };
+  }
+  
+  render() {
+    let confirmNode;
+    if (this.state.showConfirm) {
+      return (
+        <span>
+          <a href="" onClick={this._confirmDelete.bind(this)}>Yes </a> - or - <a href="" onClick={this._toggleConfirmMessage.bind(this)}> No</a>
+        </span>
+      );
+    } else {
+      confirmNode = <a href="" onClick={this._toggleConfirmMessage.bind(this)}>Delete comment?</a>;
+    }
+    return (
+      <span>{confirmNode}</span>
+    );
+  }
+  
+  _toggleConfirmMessage(e) {
+    e.preventDefault();
+    
+    this.setState({
+      showConfirm: !this.state.showConfirm
+    });
+  }
+  
+  _confirmDelete(e) {
+    e.preventDefault();
+    
+    this.props.onDelete(e);
+    
+  }
+}
+
+class CommentForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      characters: 0
+    };
+  }
+
+  render() {
+    return (
+      <form className="comment-form" onSubmit={this._handleSubmit.bind(this)}>
+        <label>New comment</label>
+        <div className="comment-form-fields">
+          <input placeholder="Name:" ref={input => this._author = input} />
+          <textarea
+            placeholder="Comment:"
+            ref={textarea => this._body = textarea}
+            onKeyUp={this._getCharacterCount.bind(this)}
+            ></textarea>
+        </div>
+        <p>{this.state.characters} characters</p>
+        <div className="comment-form-actions">
+          <button type="submit">
+            Post comment
+          </button>
+        </div>
+      </form>
+    );
+  }
+
+  _handleSubmit(event) {
+    event.preventDefault();
+    if (!this._author.value || !this._body.value) {
+      alert("Please enter your name and comment");
+      return;  // return to prevent adding
+    }
+    this.props.addComment(this._author.value, this._body.value);  // consolidate for cleaner code!
+    
+    this._author.value = '';
+    this._body.value = '';
+    
+    this.setState({ characters: 0  });
+  }
+
+}
+
 ```
