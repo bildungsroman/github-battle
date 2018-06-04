@@ -1,11 +1,11 @@
 const React = require('react');
 const Popular = require('./Popular');
-
+// main parent component
 
 class App extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="container">
 					<Popular />
 			</div>
 		)
