@@ -28,6 +28,20 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 - Setting state with setState():
   - incorrect: ``` this.state.showComments = true; ```
   - correct: ``` this.setState({showComments: true}); ```
+- Binding & _this_ keyword - 4 uses:
+  - Implicit Binding
+    - most common rule
+    - when function is invoked, that's what _this_ keyword references
+    - references what's to the left of the .
+  - Explicit Binding
+    - .apply - like .call on function, but JS parses automatically
+      - both immediately invoke function
+    - .bind - returns new function instead of invoking existing function
+      - does not immediately invoke function, but creates new one to be called later
+  - new Binding
+    - when function is invoked with _new_ keyword, _this_ keyword inside function is bound to new object being constructed
+  - window Binding
+    - _this_ keyword defaults to window object
 - 
 
 ### General JS things I should probably already know
