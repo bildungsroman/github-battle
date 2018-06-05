@@ -1,9 +1,39 @@
 const React = require('react');
+import PropTypes from 'prop-types';
+
+
+function SelectLanguage (props) {  // turn classes that only have render method into functions!
+	let languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+	return [
+		<ul className='languages'>
+		{/* <p>Selected Language: {this.state.selectedLanguage}</p>  // checks state! */}
+		{languages.map((lang) => {  // the ES6 way to do this!
+			console.log(this);
+			return (
+				<li 
+					style={lang === props.selectedLanguage ? {color:'#d0021b'} : null}
+					onClick={props.onSelect.bind(null, lang)}
+					key={lang}>
+						{lang}
+				</li>
+				)
+			})}
+		</ul>,
+		<p>Selected Language: {props.selectedLanguage}</p>
+	]
+}
+
+
+// proptypes crashing app!
+// SelectLanguage.propTypes = {
+// 	selectedLanguage: PropTypes.string.isRequired,
+// 	onSelect: PropTypes.function.isRequired,
+// };
 
 
 class Popular extends React.Component {
 	constructor (props) {
-		super(props);  // constructors have to have this!
+		super();  // constructors have to have this!
 		this.state = {
 			selectedLanguage: 'All',
 		};
@@ -15,29 +45,19 @@ class Popular extends React.Component {
 	updateLanguage(lang) {
 		this.setState(function(){
 			return {
-				selectedLanguage: lang
+				selectedLanguage: lang,
 			};
 		});
 	}
 
 	render() {
-		const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
-
 		return (
-			<ul className='languages'>
-				{/* <p>Selected Language: {this.state.selectedLanguage}</p>  // checks state! */}
-				{languages.map((lang) => {
-					console.log(this);
-					return (
-						<li 
-						style={lang === this.state.selectedLanguage ? {color:'#d0021b'} : null}
-						onClick={this.updateLanguage.bind(null, lang)}
-						key={lang}>
-						{lang}
-						</li>
-					)
-				})}
-			</ul>
+			<div>
+				<SelectLanguage  // stateless functional component
+					selectedLanguage={this.state.selectedLanguage}
+					onSelect={this.updateLanguage} 
+				/>
+			</div>
 		)
 	}
 }

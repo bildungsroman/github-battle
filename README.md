@@ -43,7 +43,27 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	- window Binding
 		- _this_ keyword defaults to window object
 - Stateless Functional Components:
-	
+	- components with just a render method
+	- a really great paradigm to get used to is separating your components into container components and presentational components, with presentational components optionally taking in some data and rendering a view
+	```
+	class HelloWorld extends React.Component {
+		render () {
+			return (
+				<div>Hello {this.props.name}</div>
+			)
+		}
+	}
+	ReactDOM.render(<HelloWorld name='Tyler' />, document.getElementById('app'))
+	```
+	- Refactored to use a stateless functional component:
+	```
+	function HelloWorld (props) {
+		return (
+			<div>Hello {props.name}</div>
+		)
+	}
+	ReactDOM.render(<HelloWorld name='Tyler' />, document.getElementById('app'))
+	```
 - 
 
 ### General JS things I should probably already know
