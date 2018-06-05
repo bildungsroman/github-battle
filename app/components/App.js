@@ -1,13 +1,16 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 const Popular = require('./Popular');
 // main parent component
 
 class App extends React.Component {
 	render() {
 		return (
-			<div className='container'>
-					<Popular />
-			</div>
+			<Router>
+				<div className='container'>
+						<Route path='/popular' component={Popular} />
+				</div>
+			</Router>
 		)
 	}
 }
