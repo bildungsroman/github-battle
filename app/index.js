@@ -1,5 +1,5 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from "react";
+import ReactDOM from "react-dom";
 // const PropTypes = require('prop-types');
 require('./index.css');
 // move logic to components, use index.js only  to render
