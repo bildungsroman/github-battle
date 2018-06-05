@@ -14,12 +14,12 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 - React components === Kolaches of the web. They have everything you need, wrapped in a delicious composable bundle
 - you should treat props to a component as immutable
 - instead of composing functions to get some value, compose functions to get some UI
-- pure function --> consistency and predictability
+- **pure function** --> consistency and predictability
 		- Pure functions always return the same result given the same arguments.
 		- Pure function's execution doesn't depend on the state of the application.
 		- Pure functions don't modify the variables outside of their scope. 
 - React's render method needs to be a pure function and because it's a pure function, all of the benefits of pure functions now apply to your UI as well
-- PropTypes allow you to declare the "type" (string, number, function, etc) of each prop being passed to a component
+- **PropTypes** allow you to declare the "type" (string, number, function, etc) of each prop being passed to a component
 		- if a prop passed in isn't of the declared type, you'll get a warning in the console
 		- to use PropTypes with functions the API is PropTypes.func
 		- to use booleans, the API is PropTypes.bool
@@ -28,7 +28,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 - Setting state with setState():
 	- incorrect: ``` this.state.showComments = true; ```
 	- correct: ``` this.setState({showComments: true}); ```
-- Binding & _this_ keyword - 4 uses:
+- **Binding** & _this_ keyword - 4 uses:
 	- Implicit Binding
 		- most common rule
 		- when function is invoked, that's what _this_ keyword references
@@ -42,9 +42,10 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 		- when function is invoked with _new_ keyword, _this_ keyword inside function is bound to new object being constructed
 	- window Binding
 		- _this_ keyword defaults to window object
-- Stateless Functional Components:
+- **Stateless Functional Components**:
 	- components with just a render method
 	- a really great paradigm to get used to is separating your components into container components and presentational components, with presentational components optionally taking in some data and rendering a view
+	- no _this_ keyword - removes ambiguity
 	```
 	class HelloWorld extends React.Component {
 		render () {
@@ -64,7 +65,109 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	}
 	ReactDOM.render(<HelloWorld name='Tyler' />, document.getElementById('app'))
 	```
+- **Private Components**:
+	```
+	function FriendItem (props) {
+		return <li>{props.friend}</li>
+	}
+
+	function FriendsList (props) {
+		return (
+			<h1>Friends:</h1>
+			<ul>
+				{props.friends.map((friend, index) => <FriendItem friend={friend} key={friend} />)}
+			</ul>
+		)
+	}
+	module.exports = FriendsList
+	```
+- The **Render** method in a React component needs to be a **pure function**. That means it needs to be stateless, it needs to not make any Ajax requests, etc. **It should just receive state and props and then render a UI.**
+- **React Life Cycle Events**:
+	- Lifecycle methods are special methods each component can have that allow us to hook into the views when specific conditions happen (i.e. when the component first renders or when the component gets updated with new data, etc). 
+	- two categories:
+		- 1) When a component gets mounted and unmounted to the DOM
+		- 2) When a component receives new data
+	- things you may need to do:
+		- Establish some default props in our component
+    - Set some initial state in our component
+    - Make an Ajax request to fetch some data needed for this component
+    - Set up any listeners (i.e. Websockets or Firebase listeners)
+    - Remove any listeners you initially set up (when unmounted)
+	- **defaultProps**:
+		```
+		class Loading extends React.Component {
+			render () {
+				...
+			}
+		}
+		Loading.defaultProps = {
+			text: 'Loading'
+		}
+		```
+	- set initial state (using ES6 constructor property):
+		```
+		class Login extends React.Component {
+			constructor (props) {
+				super(props)
+				this.state =  {
+					email: '',
+					password: ''
+				}
+			}
+			render () {
+				...
+			}
+		}
+		```
+		- to update, call _this.setState_ and pass in new properties
+	- Make an Ajax request to fetch some data needed for this component using _componentDidMount_:
+		```
+		class FriendsList extends React.Component {
+			componentDidMount () {
+				return axios.get(this.props.url).then(this.props.callback)
+			}
+			render () {
+				...
+			}
+		}
+		```
+	- Set up listeners using _componentDidMount_:
+		```
+		class FriendsList extends React.Component {
+			componentDidMount () {
+				ref.on('value', function (snapshot) {
+					this.setState(function () {
+						return {
+							friends: snapshot.val()
+						}
+					})
+				}.bind(this)
+			}
+			render () {
+				...
+			}
+		}
+		```
+	- Remove any listeners you initially set up (when unmounted) using _componentWillUnmount_:
+		```
+		class FriendsList extends React.Component {
+			componentWillUnmount () {
+				ref.off()
+			}
+			render () {
+				...
+			}
+		}
+		```
+	- **getDerivedStateFromProps**:
+		```
+		  static getDerivedStateFromProps(nextProps, prevState) {
+				// The object you return from this function will
+				// be merged with the current state.
+			}
+		```
 - 
+
 
 ### General JS things I should probably already know
 
@@ -654,4 +757,30 @@ class CommentForm extends React.Component {
 
 }
 
+```
+**Using lifecycle hooks:**
+```
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: 'Tyler McGinnis'
+    }
+  }
+  componentDidMount(){
+    // Invoked once the component is mounted to the DOM
+    // Good for making AJAX requests
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // The object you return from this function will
+    // be merged with the current state.
+  }
+  componentWillUnmount(){
+    // Called IMMEDIATELY before a component is unmounted
+    // Good for cleaning up listeners
+  }
+  render() {
+    return ...
+  }
+}
 ```
