@@ -89,10 +89,10 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 		- 2) When a component receives new data
 	- things you may need to do:
 		- Establish some default props in our component
-    - Set some initial state in our component
-    - Make an Ajax request to fetch some data needed for this component
-    - Set up any listeners (i.e. Websockets or Firebase listeners)
-    - Remove any listeners you initially set up (when unmounted)
+    	- Set some initial state in our component
+    	- Make an Ajax request to fetch some data needed for this component
+    	- Set up any listeners (i.e. Websockets or Firebase listeners)
+    	- Remove any listeners you initially set up (when unmounted)
 	- **defaultProps**:
 		```
 		class Loading extends React.Component {
@@ -166,6 +166,10 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 				// be merged with the current state.
 			}
 		```
+- **Two main things to consider when building React app:**
+	- 1. what is my specific state?
+	- 2. what does my UI look like?
+	- both things are separate in React - as state changes, UI automatically updates
 - 
 
 
