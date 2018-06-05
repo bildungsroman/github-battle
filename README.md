@@ -42,6 +42,8 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 		- when function is invoked with _new_ keyword, _this_ keyword inside function is bound to new object being constructed
 	- window Binding
 		- _this_ keyword defaults to window object
+- Stateless Functional Components:
+	
 - 
 
 ### General JS things I should probably already know
