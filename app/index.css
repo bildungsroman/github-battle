@@ -13,6 +13,15 @@ li {
 	list-style-type: none;
 }
 
+.home-cont {
+	margin-top: 10vh;
+	text-align: center;
+}
+
+.home-cont h3 {
+	margin-bottom: 5vh;
+}
+
 .languages {
 	display: flex;
 	justify-content: center;

@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+const Home = require('./Home');
+const Battle = require('./Battle');
 const Popular = require('./Popular');
-// const Battle = require('./Battle');
 const Nav = require('./Nav');
 // main parent component
 
@@ -12,7 +13,22 @@ class App extends React.Component {
 				<div>
 					<Nav />
 				<div  className='container'>
-					<Route path='/popular' component={Popular} />
+					<Switch>
+						<Route exact path='/' component={Home} />
+						<Route exact path='/battle' component={Battle} />
+						<Route path='/popular' component={Popular} />
+						{/* With switch, if none of the specified routes are found, the default below is shown */}
+						<Route render={function(){
+							return (
+								<div className="container home-cont">
+									<h1>Four oh Four!</h1>
+									<div className="col-6 offset-md-3">
+										<Link className="btn btn-outline-secondary btn-block btn-lg" to="/">BACK TO SAFETY!</Link>
+									</div>
+								</div>
+							)
+						}} />
+					</Switch>
 				</div>
 				</div>
 			</Router>
