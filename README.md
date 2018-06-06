@@ -170,6 +170,13 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	- 1. what is my specific state?
 	- 2. what does my UI look like?
 	- both things are separate in React - as state changes, UI automatically updates
+- **Controlled vs. uncontrolled components**:
+	- Controlled components: instead of grabbing a value from the dorm, bind the value of the input field to whatever the property on the state object is
+		- normally update state after typing
+		- makes the update reactive - state changes as value changes
+	- Uncontrolled components: grab the value of the input from the DOM only upon user hitting submit
+		- not recommended in React
+- Encapsulation: pass onSubmit function down to child component, which then updates parent component's state
 - 
 
 
