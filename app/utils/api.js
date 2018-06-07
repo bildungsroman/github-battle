@@ -1,5 +1,5 @@
 const axios = require('axios');
-import Secrets from 'secrets';
+import Secrets from './secrets';
 
 let id = Secrets.id;  // if required from github
 let secret = Secrets.secret;  // if required from github
@@ -16,7 +16,7 @@ function getProfile(username) {
 }
 
 function getRepos(username) {
-  return axios.get(url + username + '/repos' + '&per_page=100');
+  return axios.get(url + username + '/repos' + params + '&per_page=100');
 }
 
 function getStarCount(repos) {
@@ -29,6 +29,10 @@ function getStarCount(repos) {
 function calculateScore(profile, repos) {
   let followers = profile.followers;
   let totalStars = getStarCount(repos);
+
+  if (profile.login === 'bildungsroman') {  // the developer always wins :)
+    return 1000000;
+  }
 
   return (followers * 3) + totalStars;
 }

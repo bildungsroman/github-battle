@@ -1,8 +1,24 @@
 import React from 'react';
 import queryString from 'query-string';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { BrowserRouter as Link } from 'react-router-dom';
 import api from '../utils/api';
+
+
+function Player(props) {  // stateless functional component => takes props, returns UI
+  return (
+    <div>
+      <h1>{props.label}</h1>
+      <h3 className="text-center">Score: {props.score}</h3>
+    </div>
+  );
+}
+
+Player.propTypes = {
+  label: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  profile: PropTypes.object.isRequired,
+};
 
 
 class Results extends React.Component {
@@ -18,7 +34,6 @@ class Results extends React.Component {
   }
   componentDidMount() {
     let players = queryString.parse(this.props.location.search);  // returns {playerOneName: "nameString", playerTwoName: "nameString2"}
-    console.log(players);
     api.battle([
       players.playerOneName,
       players.playerTwoName,
@@ -69,7 +84,22 @@ class Results extends React.Component {
     return (
       <div className="home-cont">
         <h1>Results</h1>
-        <p>{JSON.stringify(this.state, null, 2)}</p>
+        <div className="row">
+          <div className="col-6">
+            <Player 
+              label="Winner"
+              score={winner.score}
+              profile={winner.profile}
+            />
+          </div>
+          <div className="col-6">
+            <Player 
+              label="Loser"
+              score={loser.score}
+              profile={loser.profile}
+            />
+          </div>
+        </div>
       </div>
     );
   }
