@@ -1,21 +1,22 @@
 const axios = require('axios');
+import Secrets from './.secrets';
 
-let id = "YOUR_CLIENT_ID";  // if required from github
-let secret = "YOUR_SECRET_ID";  // if required from github
+let id = Secrets.id;  // if required from github
+let secret = Secrets.secret;  // if required from github
 let params = "?client_id=" + id + "&client_secret=" + secret;
-let url = "http://api.github.com/users/"
+let url = "http://api.github.com/users/";
 
 
 // logic for getting user info for the battle page
 function getProfile(username) {
-  return axios.get(url + username)  // + params if needed
+  return axios.get(url + username + params)  // + params if needed
     .then(function(user){
       return user.data;
     });
 }
 
 function getRepos(username) {
-  return axios.get(url + username + '/repos' + '&per_page=100')
+  return axios.get(url + username + '/repos' + '&per_page=100');
 }
 
 function getStarCount(repos) {

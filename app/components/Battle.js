@@ -131,7 +131,6 @@ class Battle extends React.Component {
     let playerTwoImage = this.state.playerTwoImage;
     
     return (
-      <div>
       <div className="container home-cont">
         <div className="row">
           <div className="col-xs-6 col-6">
@@ -176,7 +175,6 @@ class Battle extends React.Component {
               }}>TO THE DEATH!</Link>}
           </div>
         </div>
-      </div>
       </div>
     )
   }
