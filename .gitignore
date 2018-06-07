@@ -2,5 +2,6 @@
 node_modules
 dist
 
-.secrets.js
-.secrets
+secrets.js
+secrets
+utils/secrets

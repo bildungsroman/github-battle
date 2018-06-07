@@ -1,5 +1,5 @@
 const axios = require('axios');
-import Secrets from './.secrets';
+import Secrets from 'secrets';
 
 let id = Secrets.id;  // if required from github
 let secret = Secrets.secret;  // if required from github
