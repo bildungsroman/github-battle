@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as Route, Link } from "react-router-dom";
 
 
 function PlayerPreview(props) {
@@ -131,6 +131,7 @@ class Battle extends React.Component {
     let playerTwoImage = this.state.playerTwoImage;
     
     return (
+      <div>
       <div className="container home-cont">
         <div className="row">
           <div className="col-xs-6 col-6">
@@ -171,12 +172,11 @@ class Battle extends React.Component {
               className="btn btn-outline-secondary btn-block btn-lg"
               to={{
                 pathname: match.url + '/results',
-                search: `?playerOneName=` + playerOneName + '&playerTwoName=' + playerTwoName
-              }}>
-              TO THE DEATH!</Link>
-          }
+                search: '?playerOneName=' + playerOneName + '&playerTwoName=' + playerTwoName
+              }}>TO THE DEATH!</Link>}
           </div>
         </div>
+      </div>
       </div>
     )
   }

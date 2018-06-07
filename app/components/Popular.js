@@ -1,6 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
-const api = require('../utils/api');
+import api from '../utils/api';
 
 // react app elements:
 // state
@@ -14,7 +13,6 @@ function SelectLanguage (props) {  // turn classes that only have render method 
 		<ul className='languages'>
 		{/* <p>Selected Language: {this.state.selectedLanguage}</p>  // checks state! */}
 		{languages.map((lang) => {  // the ES6 way to do this!
-			console.log(this);
 			return (
 				<li 
 					style={lang === props.selectedLanguage ? {color:'#d0021b'} : null}
