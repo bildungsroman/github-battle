@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";  // use NavLink if you want to change the style of the link as user navigates
-import { LinkContainer } from 'react-router-bootstrap';  // for styling
+import { BrowserRouter as Link, NavLink } from "react-router-dom";  // use NavLink if you want to change the style of the link as user navigates
+// import { LinkContainer } from 'react-router-bootstrap';  // for styling
 
 // stateless functional component b/c no state and no lifecycle needed
 function Nav() {

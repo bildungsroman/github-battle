@@ -1,12 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-const Home = require('./Home');
-const Battle = require('./Battle');
-const Results = require('./Results');
-const Popular = require('./Popular');
-const Nav = require('./Nav');
-// main parent component
+import Home from './Home';
+import Battle from './Battle';
+import Results from './Results';
+import Popular from './Popular';
+import Nav from './Nav';
 
+
+// main parent component
 class App extends React.Component {
 	render() {
 		return (

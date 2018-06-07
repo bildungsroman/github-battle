@@ -188,7 +188,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 			componentDidMount()     // good place to fetch data from API that needs to be fetched periodically (using setInterval())
 			componentWillUnmount()  // unmounting = being removed from the DOM -> remember to clearInterval() here if set
 		```
-- 
+- _props.children_ in a component is just whatever is between the <Opening> and closing </Opening> blocks of a component. 
 
 ### General JS things I should probably already know
 
