@@ -1,6 +1,30 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
+function PlayerPreview(props) {
+  return (
+    <div>
+      <div className="col-6 text-center mx-auto">
+        <img
+          className="avatar img-responsive"
+          src={props.avatar}
+          alt={'Avarar for ' + props.username}
+        />
+        <h2>@{props.username}</h2>
+      </div>
+      <button className="reset" onClick={props.onReset.bind(null, props.id)}>Reset</button>   {/* // null b/c context already set */}
+    </div>
+  )
+}
+
+PlayerPreview.propTypes = {
+  avatar: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  onReset: PropTypes.func.isRequired,
+}
 
 
 class PlayerInput extends React.Component {
@@ -78,6 +102,7 @@ class Battle extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);  // in order to get right _this_ below
+    this.handleReset = this.handleReset.bind(this);
   }
 
   handleSubmit(id, username) {
@@ -85,14 +110,26 @@ class Battle extends React.Component {
       let newState = {};
       newState[id + 'Name'] = username;
       newState[id + 'Image'] = 'https://github.com/' + username + '.png?size=200';
+      return newState;  // very important - doesn't work without!
     });
   }
 
+  handleReset(id) {
+    this.setState(function(){
+      let newState = {};
+      newState[id + 'Name'] = '';
+      newState[id + 'Image'] = null;
+      return newState;  // very important - doesn't work without!
+    })
+  }
+
   render() {
+    let match = this.props.match;
     let playerOneName = this.state.playerOneName;
     let playerTwoName = this.state.playerTwoName;
-    // let playerOneImage = this.state.playerOneImage;
-    // let playerTwoImage = this.state.playerTwoImage;
+    let playerOneImage = this.state.playerOneImage;
+    let playerTwoImage = this.state.playerTwoImage;
+    
     return (
       <div className="container home-cont">
         <div className="row">
@@ -102,7 +139,14 @@ class Battle extends React.Component {
                 id='playerOne'
                 label='Player One'
                 onSubmit={this.handleSubmit}  // passes all of these things as props to handleSubmit
-              />}
+            />}
+            {playerOneImage !== null &&
+            <PlayerPreview
+              avatar={playerOneImage}
+              username={playerOneName}
+              onReset={this.handleReset}
+              id='playerOne'
+            />}
           </div>
           <div className="col-xs-6 col-6">
             {!playerTwoName &&  // managing state instead of in handleSubmit method
@@ -111,6 +155,26 @@ class Battle extends React.Component {
               label='Player Two'
               onSubmit={this.handleSubmit}  // passes all of these things as props to handleSubmit
             />}
+            {playerTwoImage !== null &&
+            <PlayerPreview
+              avatar={playerTwoImage}
+              username={playerTwoName}
+              onReset={this.handleReset}
+              id='playerTwo'
+            />}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-4 offset-md-4">
+          {playerOneImage && playerTwoImage &&
+            <Link
+              className="btn btn-outline-secondary btn-block btn-lg"
+              to={{
+                pathname: match.url + '/results',
+                search: `?playerOneName=` + playerOneName + '&playerTwoName=' + playerTwoName
+              }}>
+              TO THE DEATH!</Link>
+          }
           </div>
         </div>
       </div>

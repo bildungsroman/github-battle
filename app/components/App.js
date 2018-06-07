@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 const Home = require('./Home');
 const Battle = require('./Battle');
+const Results = require('./Results');
 const Popular = require('./Popular');
 const Nav = require('./Nav');
 // main parent component
@@ -16,6 +17,7 @@ class App extends React.Component {
 					<Switch>
 						<Route exact path='/' component={Home} />
 						<Route exact path='/battle' component={Battle} />
+						<Route path='/battle/results' component={Results} />
 						<Route path='/popular' component={Popular} />
 						{/* With switch, if none of the specified routes are found, the default below is shown */}
 						<Route render={function(){
