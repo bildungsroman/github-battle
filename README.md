@@ -177,8 +177,18 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	- Uncontrolled components: grab the value of the input from the DOM only upon user hitting submit
 		- not recommended in React
 - Encapsulation: pass onSubmit function down to child component, which then updates parent component's state
+- **React Lifecycle methods**:
+	- functions that are called while the component is rendered for the first time or about to be removed from the DOM
+	- functions that get called during certain phases that components go through
+	- order:
+		```
+			constructor()
+			componentWillMount()    // mounting = being rendered for the first time -> good time for AJAX requests
+			render()
+			componentDidMount()     // good place to fetch data from API that needs to be fetched periodically (using setInterval())
+			componentWillUnmount()  // unmounting = being removed from the DOM -> remember to clearInterval() here if set
+		```
 - 
-
 
 ### General JS things I should probably already know
 
@@ -201,17 +211,17 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 - Synthetic events: in order to ensure events have consistent properties across browsers, React wraps the browser's native events into synthetic events
 	- use ```onSubmit``` in react to capture form submission events
 - Array.find: ```let admin = users.find( user => user.admin ); ``` --> returns first true value (not all true values like Array.filter)
-- Maps: like objects - key/value data structure - any value can be key or value, & numbers not converted to strings
+- **Maps**: like objects - key/value data structure - any value can be key or value, & numbers not converted to strings
 	- use get() & set() methods to access values in maps
 	- ``` let newMap = new Map(); \ newMap.set( user1, 5); \ newMap.get(user1); ==> 5 ```
 	- can be used with for...of loops, unlike objects
 	- can have WeakMap() -> takes only objects
-- Sets: like arrays - store unique values of any type (like python dicts)
+- **Sets**: like arrays - store unique values of any type (like python dicts)
 	- use add() & 
 	- ``` let newSet = new Set();  \ newSet.add("value"); \ newSet.size ==> 1```
 	- set objects are iterable - can be used w/ for...of loops - ``` for(let set of newSet) {};  ```
 	- can have WeakSet() -> takes only objects
-- Classes:
+- **Classes**:
 	```
 	class NewClass { 
 		constructor(name, username, img) {
@@ -233,7 +243,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 		// ...
 	}
 	```
-- exporting functions or classes as modules: 
+- **exporting functions or classes as modules**: 
 	```
 	// flash-message.js:
 	export function flashMessage(message){
@@ -255,7 +265,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	export const A_CONST = 3;
 	export const ANOTHER_CONST = 50;
 	```
-- Promises:
+- **Promises**:
 	- promise constructor function takes an anonymous function with two callback arguments (handlers):
 	```
 		function getResults(name) {
@@ -277,8 +287,8 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 			console.log(error);
 		});
 	```
-- Generators: 
-	- \* : generator functions - special functions from which we can use the yield keyword to return iterator objects
+- **Generators**: 
+	- \* : generator functions - special functions from which we can use the _yield_ keyword to return iterator objects
 	```
 	function *nameList() {
 		yield "name1";
@@ -293,7 +303,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	let [first, second] = nameList();
 	console.log(first, second);  // > name1 name2
 	```
-- Ternary Conditionals:
+- **Ternary Conditionals**:
 	- ```let result = someCondition ? pickThisIfTrue : pickThisIfFalse; ```
 	- ```let result2 = someCondition && someOther ? pickThisIfTrue : pickThisIfFalse; ```
 	- ```someCondition && someOther ? functionIfTrue(){...}() : functionIfFalse(){...}(); ```
@@ -316,7 +326,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 		result = "result 1" && "result 2";  // > will return 'result 2' - last 'truthy' value
 		}
 	```
-- Switch block:
+- **Switch** block:
 	```
 	function Knight (name, choice) {
 		this.name = name;
@@ -340,7 +350,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 
 	let soldier2 = new Knight("Richard", 2)  // -> soldier2.weapon returns "knife"
 	```
-- Loop optimization: 
+- **Loop** optimization: 
 	```
 	// instead of for(let i = 0; i < someObj.someArray.length; i++){...}
 	// do:
@@ -351,7 +361,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	let list = someObj.someArray;
 	for(let i = 0, x = list.length; i < x; i++){...}
 	```
-- Exception handling:
+- **Exception handling**:
 	- exceptions are run-time errors
 	- A syntax error is detected by the JavaScript parser before the program is ever executed, whereas a run-time error can be the result of trying to execute perfectly valid JavaScript
 	- try/catch block:
@@ -374,18 +384,40 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 			// comes at end of try/catch block, always executed
 		}
 		```
-- React Lifecycle methods:
-	- functions that are called while the component is rendered for the first time or about to be removed from the DOM
-	- functions that get called during certain phases that components go through
-	- order:
-		```
-			constructor()
-			componentWillMount()    // mounting = being rendered for the first time -> good time for AJAX requests
-			render()
-			componentDidMount()     // good place to fetch data from API that needs to be fetched periodically (using setInterval())
-			componentWillUnmount()  // unmounting = being removed from the DOM -> remember to clearInterval() here if set
-		```
-	- 
+- **Reduce**:
+	- .reduce takes in two values, a callback function and an initial value
+	```
+	  let scores = [89, 76, 47, 95]
+		let initialValue = 0
+		let reducer = function (accumulator, item) {
+			return accumulator + item
+		}
+		let total = scores.reduce(reducer, initialValue)
+		let average = total / scores.length
+	```
+	- can be used to convert an array into an object:
+	```
+	let votes = [
+		'tacos',
+		'pizza',
+		'pizza',
+		'tacos',
+		'fries',
+		'ice cream',
+		'ice cream',
+		'pizza'
+	]
+	let initialValue = {}
+	let reducer = function(tally, vote) {
+		if (!tally[vote]) {
+			tally[vote] = 1;
+		} else {
+			tally[vote] = tally[vote] + 1;
+		}
+		return tally;
+	}
+	let result = votes.reduce(reducer, initialValue) // {tacos: 2, pizza: 3, fries: 1, ice cream: 2}
+	```
 
 ## Basic React component
 
