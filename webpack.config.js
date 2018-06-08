@@ -1,6 +1,11 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import webpack from "webpack";  // for production
+// import path from "path";
+// import HtmlWebpackPlugin from "html-webpack-plugin";
+// import webpack from "webpack";  // for production
+
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");  // for production
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 
 const config = {
@@ -35,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.UglifyJsPlugin()
+    new UglifyJsPlugin()
   );
 }
 
