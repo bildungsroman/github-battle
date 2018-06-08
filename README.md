@@ -204,7 +204,27 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 
 	// result => <a>This text gets passed as children!</a>
 	```
+- **defaultProps** 
+	- allows you to specify what the default props will be in a component if those specific props aren't specified when the component is invoked
+	```
+	class Loading extends React.Component {
+		render () {
+			...
+		}
+	}
+	Loading.defaultProps = {
+		text: 'loading',
+		styles: {color: 'red'}
+	}
+	```
+	-  Now if someone uses our Loading component like this:
+			```<Loading />```
+		without specifying a text or styles property, this.props.text will default to 'loading' and this.props.styles will default to {color: 'red'}.
+		but if our component is used like this:
+		```<Loading text='One second' styles={{color: 'green'}} />```
+		Then this.props.text will be 'One second' and this.props.color will be 'green'. 
 - 
+
 
 ### General JS things I should probably already know
 
