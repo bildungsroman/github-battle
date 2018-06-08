@@ -5,6 +5,7 @@ import Battle from './Battle';
 import Results from './Results';
 import Popular from './Popular';
 import Nav from './Nav';
+import Footer from './Footer';
 
 
 // main parent component
@@ -33,6 +34,7 @@ class App extends React.Component {
 						}} />
 					</Switch>
 				</div>
+				<Footer />
 				</div>
 			</Router>
 		)

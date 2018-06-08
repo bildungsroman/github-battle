@@ -1,7 +1,23 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body {
 	background: #222;
 	color: white;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #343A40;
 }
 
 nav {
@@ -30,12 +46,13 @@ li {
 }
 
 a {
-	color: #d0021b;
+	color: #999;
 	text-decoration: none;
+	font-weight: thin;
 }
 
 a:hover {
-	color: #d0021b;
+	color: #6C757D;
 	text-decoration: none;
 	font-weight: bold;
 }
