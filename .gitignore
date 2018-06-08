@@ -5,3 +5,6 @@ dist
 secrets.js
 secrets
 utils/secrets
+
+.firebaserc
+firebase.json
