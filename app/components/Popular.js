@@ -1,4 +1,5 @@
 import React from "react";
+import Loading from './Loading';
 import api from '../utils/api';
 
 // react app elements:
@@ -109,7 +110,7 @@ class Popular extends React.Component {
 				/>
 				{/* {JSON.stringify(this.state.repos, null, 2)}   // to see objects in HTML */}
 				{!this.state.repos  		// if falsey (null)
-					? <p>LOADING...</p>		// show as loading, otherwise: 
+					? <Loading text="Loading repos" speed={100} />		// show as loading with custom text, otherwise: 
 					: <RepoGrid repos={this.state.repos} /> }
 			</div>
 		)

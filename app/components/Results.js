@@ -1,7 +1,7 @@
 import React from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Link } from 'react-router-dom';
+import Loading from './Loading';
 import api from '../utils/api';
 import PlayerPreview from './PlayerPreview';
 
@@ -92,9 +92,7 @@ class Results extends React.Component {
 
     if (loading === true) {
       return (
-        <div className="container home-cont">
-          <h3>Loading...</h3>
-        </div>
+        <Loading />
       )
     }
 

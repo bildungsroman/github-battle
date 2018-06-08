@@ -9,9 +9,9 @@ function Nav() {
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
+      <NavLink className="navbar-brand" to='/'><i className="fab fa-github-alt"></i> v<i className="fas fa-bolt"></i>s <i className="fab fa-github-alt"></i></NavLink>
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav mr-auto">
-          <NavLink className="navbar-brand" to='/'><i className="fab fa-github-alt"></i> v<i className="fas fa-bolt"></i>s <i className="fab fa-github-alt"></i></NavLink>
           <li className="nav-item">
             <NavLink exact activeClassName="active" className="nav-link" to='/'>Home</NavLink> 
             {/* add exact so home only bolded when exactly at / */}
