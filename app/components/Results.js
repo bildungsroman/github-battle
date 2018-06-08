@@ -126,6 +126,9 @@ class Results extends React.Component {
             />
           </div>
         </div>
+        <div className="col-6 offset-md-3">
+          <a className="btn btn-outline-secondary btn-block btn-lg" href="/battle">AGAIN!</a>
+        </div>
       </div>
     );
   }
