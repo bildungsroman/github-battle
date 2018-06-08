@@ -3,13 +3,39 @@ import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Link } from 'react-router-dom';
 import api from '../utils/api';
+import PlayerPreview from './PlayerPreview';
+
+
+function Profile(props) {  // called from Player function
+  let info = props.info;
+
+  return (
+    <PlayerPreview avatar={info.avatar_url} username={info.login} >
+      {/* everything below rendered as props.children */}
+      <ul className="list-group list-group-flush">
+        {info.name && <li className="list-group-item text-light bg-dark">{info.name}</li>}  {/* only shown if exists */}
+        {info.location && <li className="list-group-item text-light bg-dark">{info.location}</li>}  {/* only shown if exists */}
+        {info.company && <li className="list-group-item text-light bg-dark">{info.company}</li>}  {/* only shown if exists */}
+        <li className="list-group-item text-light bg-dark">Followers: <span className="badge badge-secondary badge-pill">{info.followers}</span></li>
+        <li className="list-group-item text-light bg-dark">Following: <span className="badge badge-secondary badge-pill">{info.following}</span></li>
+        <li className="list-group-item text-light bg-dark">Public repos: <span className="badge badge-secondary badge-pill">{info.public_repos}</span></li>
+        {info.blog && <li className="list-group-item bg-dark"><a href={info.blog} target="_blank">{info.blog}</a></li>}  {/* only shown if exists */}
+      </ul>
+    </PlayerPreview>
+  );
+}
+
+Profile.propTypes = {
+  info: PropTypes.object.isRequired,
+}
 
 
 function Player(props) {  // stateless functional component => takes props, returns UI
   return (
     <div>
-      <h1>{props.label}</h1>
-      <h3 className="text-center">Score: {props.score}</h3>
+      <h2>{props.label}</h2>
+      <h4>Score: {props.score}</h4>
+      <Profile info={props.profile} />
     </div>
   );
 }

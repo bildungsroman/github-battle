@@ -188,7 +188,23 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 			componentDidMount()     // good place to fetch data from API that needs to be fetched periodically (using setInterval())
 			componentWillUnmount()  // unmounting = being removed from the DOM -> remember to clearInterval() here if set
 		```
-- _props.children_ in a component is just whatever is between the <Opening> and closing </Opening> blocks of a component. 
+- _props.children_ in a component is just whatever is between the <Opening> and closing </Opening> blocks of a component:
+	```
+	function Link(props) {
+		return (
+			<a>
+				{props.children}
+			</a>
+		)
+	}
+
+	<Link>
+		This text gets passed as children!
+	</Link>
+
+	// result => <a>This text gets passed as children!</a>
+	```
+- 
 
 ### General JS things I should probably already know
 

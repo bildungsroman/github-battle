@@ -1,30 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Route, Link } from "react-router-dom";
-
-
-function PlayerPreview(props) {
-  return (
-    <div>
-      <div className="col-6 text-center mx-auto">
-        <img
-          className="avatar img-responsive"
-          src={props.avatar}
-          alt={'Avarar for ' + props.username}
-        />
-        <h2>@{props.username}</h2>
-      </div>
-      <button className="reset" onClick={props.onReset.bind(null, props.id)}>Reset</button>   {/* // null b/c context already set */}
-    </div>
-  )
-}
-
-PlayerPreview.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired,
-}
+import PlayerPreview from './PlayerPreview';
 
 
 class PlayerInput extends React.Component {
@@ -143,10 +120,10 @@ class Battle extends React.Component {
             {playerOneImage !== null &&
             <PlayerPreview
               avatar={playerOneImage}
-              username={playerOneName}
-              onReset={this.handleReset}
-              id='playerOne'
-            />}
+              username={playerOneName}>
+            {/* button passed as props.children! */}
+            <button className="reset" onClick={this.handleReset.bind(null, 'playerOne')}>Reset</button>   {/* // null b/c context already set */}
+            </PlayerPreview>}
           </div>
           <div className="col-xs-6 col-6">
             {!playerTwoName &&  // managing state instead of in handleSubmit method
@@ -158,10 +135,10 @@ class Battle extends React.Component {
             {playerTwoImage !== null &&
             <PlayerPreview
               avatar={playerTwoImage}
-              username={playerTwoName}
-              onReset={this.handleReset}
-              id='playerTwo'
-            />}
+              username={playerTwoName}>
+            {/* button passed as props.children! */}
+            <button className="reset" onClick={this.handleReset.bind(null, 'playerTwo')}>Reset</button>   {/* // null b/c context already set */}
+            </PlayerPreview>}
           </div>
         </div>
         <div className="row">
