@@ -458,10 +458,13 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 ## Functional programming
 
 - ƒ(d)=V
-	- a function that receives data as its input and returns a view
+	- A Function takes in some Data and returns a View
+	- **your UI is a function of your state and props are to components what arguments are to functions**
+		- instead of your function taking in some arguments and returning a value, your function is going to take in some arguments and return an object representation of your UI
 	- no scoping, binding, subclassing, external access to variables or any side effects
 	- this makes it very predictable with drastically less regard to the context that a Pure View is run in
 	- Given any JSON will ALWAYS create the same HTML, CSS and event listeners
+	- now your UI is just composed of different function invocations
 
 ## Basic React component
 
