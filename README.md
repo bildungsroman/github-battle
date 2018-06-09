@@ -455,6 +455,14 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	let result = votes.reduce(reducer, initialValue) // {tacos: 2, pizza: 3, fries: 1, ice cream: 2}
 	```
 
+## Functional programming
+
+- ƒ(d)=V
+	- a function that receives data as its input and returns a view
+	- no scoping, binding, subclassing, external access to variables or any side effects
+	- this makes it very predictable with drastically less regard to the context that a Pure View is run in
+	- Given any JSON will ALWAYS create the same HTML, CSS and event listeners
+
 ## Basic React component
 
 ```
