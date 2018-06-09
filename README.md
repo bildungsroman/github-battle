@@ -223,7 +223,10 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 		but if our component is used like this:
 		```<Loading text='One second' styles={{color: 'green'}} />```
 		Then this.props.text will be 'One second' and this.props.color will be 'green'. 
-- 
+- The separation of container and presentational components:
+	- If you think about the anatomy of a React component, it usually involves some state, potentially some lifecycle hooks, and markup via JSX. What if, instead of having all of that in one component, we separate the state and the lifecycle hooks from the markup. This leaves us with two components. The first has state, life cycle methods, and is responsible for how the component works. The second receives data via props and is responsible for how the component looks. This approach allows us to have better reusability of our presentational components since they’re no longer coupled to the data they receive. I’ve also found that it allows you (and newcomers to your project) to better understand the structure of your application. You’re able to swap out the implementation of a component without seeing or caring about the UI and vice versa - designers can tweak the UI without ever having to worry about how those presentational components are receiving data.
+- If you try to keep most of your components pure, stateless things become a lot simpler to maintain:
+	- This is another benefit of separating your presentational components from your container components. State is the sidekick of inconsistency. By drawing the right lines of separation, you’re able to drastically improve the predictability of your application by encapsulating complexity.
 
 
 ### General JS things I should probably already know
