@@ -458,7 +458,7 @@ Learning React JS fundamentals while following along with [Tyler McGinnis' React
 	let result = votes.reduce(reducer, initialValue) // {tacos: 2, pizza: 3, fries: 1, ice cream: 2}
 	```
 
-## Functional programming
+#### Functional programming
 
 - ƒ(d)=V
 	- A Function takes in some Data and returns a View
